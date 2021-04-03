@@ -1,17 +1,23 @@
-def heapify(arr, amt, i):
-    biggest = i
-    left = (i * 2) + 1
-    right = (i * 2) + 2
+def heapify(arr, size, root):
+    biggest = root
+    left = (root * 2) + 1
+    right = (root * 2) + 2
 
-    if left < amt and arr[biggest] < arr[left]:
+    # Handle left child
+    left_exists = left < size
+    if left_exists and arr[left] > arr[biggest]:
         biggest = left
 
-    if right < amt and arr[biggest] < arr[right]:
+    # Handle right child
+    right_exists = right < size
+    if right_exists and arr[right] > arr[biggest]:
         biggest = right
 
-    if biggest != i:
-        arr[i], arr[biggest] = arr[biggest], arr[i]
-        heapify(arr, amt, biggest)
+    # Decide whether to swap
+    is_root_biggest = biggest == root
+    if not is_root_biggest:
+        arr[root], arr[biggest] = arr[biggest], arr[root]
+        heapify(arr, size, biggest)
 
 
 def heapsort(arr):
